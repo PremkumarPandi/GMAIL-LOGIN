@@ -1,0 +1,52 @@
+package Gmail;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+
+public class gmailAutomation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\PREM\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe");
+        WebDriver V1 = new ChromeDriver();
+      
+     // Getting Google URL:  Premkumar
+        V1.get("https://www.google.co.in/");
+        V1.manage().window().maximize();
+        V1.findElement(By.name("q")).sendKeys("Gmail Login" + Keys.ENTER);
+        
+     // Getting Gmail Login URL:   Premkumar
+        V1.get("https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&ifkv=AeDOFXhx7hc6gaNcnwA0yu1ilWwfI1DLDngQrnkz7yYSRej8Ch6MjzjCXbbC83HGMj2L1IIACdUwrw&sacu=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-838554086%3A1690887795645890"); 
+     
+    //Implicity wait and managing time:  
+        V1.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        
+      // Email Id and Password:  Premkumar
+        V1.findElement(By.id("identifierId")).sendKeys("PREM123@GMAIL.COM");
+        WebElement N1 = V1.findElement(By.xpath("//*[@id='identifierNext']/div/button/span"));
+        N1.click();	
+        V1.findElement(By.xpath("//*[@id='password']/div[1]/div/div[1]/input")).sendKeys("Prem12345@");
+        WebElement N2 = V1.findElement(By.xpath("//*[@id='passwordNext']/div/button/span"));
+        N2.click();
+        WebElement N3 = V1.findElement(By.xpath("//*[@id='gbwa']/div/a"));
+        N3.click();
+        
+     // Getting Inbox URL: Premkumar  
+        V1.get("https://mail.google.com/mail/u/0/");
+        WebElement Inbox = V1.findElement(By.xpath("/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div/div"));
+        Inbox.click();
+        V1.findElement(By.id(":e3")).sendKeys("PREM123@GMAIL.COM"+ Keys.ENTER);
+        V1.findElement(By.name("subjectbox")).sendKeys("Selenium Automation Testing"+ Keys.ENTER);
+        V1.findElement(By.id(":bj")).sendKeys("Hi Team, This mail regards for Testing purpose"+Keys.CONTROL+Keys.ENTER);
+        
+      //Signout:  Premkumar
+        
+        driver.findElement(By.xpath("//*[@id='gb']/div[2]/div[3]/div[1]/div[2]/div/a")).click();
